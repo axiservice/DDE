@@ -1,0 +1,1 @@
+jre\bin\java -Djava.library.path=".\lib" -jar FDF_Server.jar

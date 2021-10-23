@@ -1,0 +1,2 @@
+start jre\bin\java -Djava.library.path=".\lib" -jar FDF_Reader.jar output\FBTP.csv FBTP0621.NaE;last
+start jre\bin\java -Djava.library.path=".\lib" -jar FDF_Reader.jar output\FBTP2.csv FBTP0621.NaE;last
