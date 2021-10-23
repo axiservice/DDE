@@ -25,10 +25,12 @@ public class DDEServerExample
 {
     private static final String SERVICE = "FDF";
     private static final String TOPIC = "Q";
-    private static final String MY_ADVISE_ITEM = "FBTP0621.NaE;last";
+    private static final String MY_ADVISE_ITEM1 = "FBTP0621.NaE;last";
+    private static final String MY_ADVISE_ITEM2 = "FBTP0622.NaE;last";
+    private static final String MY_ADVISE_ITEM3 = "FBTP9999.NaE;last";
     private static final String MY_REQUEST_ITEM = "MyRequest";
     private static final String MY_POKE_ITEM = "MyPoke";
-    private static final List<String> ITEMS = Arrays.asList(MY_ADVISE_ITEM, MY_REQUEST_ITEM, MY_POKE_ITEM);
+    private static final List<String> ITEMS = Arrays.asList(MY_REQUEST_ITEM, MY_POKE_ITEM, MY_ADVISE_ITEM1, MY_ADVISE_ITEM2, MY_ADVISE_ITEM3);
 
     public static void main(String[] args)
     {
@@ -107,14 +109,46 @@ public class DDEServerExample
                 {
                     num.incrementAndGet();
                     try {
-                        System.out.println("notify clients");
-                        server.notifyClients(TOPIC, MY_ADVISE_ITEM);
+                        System.out.println("notify1 clients");
+                        server.notifyClients(TOPIC, MY_ADVISE_ITEM1);
                     } catch (DDEException e) {
                         System.out.println("DDEClientException: " + e.getMessage());
                         cancel();
                     }
                 }
-            }, 1000L, 500L);
+            }, 3000L, 500L);
+            
+            final Timer timer2 = new Timer();
+            timer2.schedule(new TimerTask() {
+                @Override
+                public void run()
+                {
+                    num.incrementAndGet();
+                    try {
+                        System.out.println("notify2 clients");
+                        server.notifyClients(TOPIC, MY_ADVISE_ITEM2);
+                    } catch (DDEException e) {
+                        System.out.println("DDEClientException: " + e.getMessage());
+                        cancel();
+                    }
+                }
+            }, 2001L, 501L);
+            
+            final Timer timer3 = new Timer();
+            timer3.schedule(new TimerTask() {
+                @Override
+                public void run()
+                {
+                    num.incrementAndGet();
+                    try {
+                        System.out.println("notify3 clients");
+                        server.notifyClients(TOPIC, MY_ADVISE_ITEM3);
+                    } catch (DDEException e) {
+                        System.out.println("DDEClientException: " + e.getMessage());
+                        cancel();
+                    }
+                }
+            }, 2002L, 602L);
 
             System.out.println("Waiting for stop...");
             eventStop.await();

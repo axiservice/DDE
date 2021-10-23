@@ -13,7 +13,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -31,7 +33,8 @@ public class AdviceExample
     static SimpleDateFormat timeFormat =new SimpleDateFormat("HH:mm:ss");
     
     static File fileName;
-	static String item;
+	static String item, item2;
+	static List<String> itemList = new ArrayList<String>();
 	
     public static void main(String[] args){
         try{       
@@ -43,6 +46,8 @@ public class AdviceExample
         	} else {
         		fileName = new File(args[0]);        		
         		item = args[1];
+        		item2 = args[2];
+        		for(int i=1; i<args.length; i++) {itemList.add(args[i]);}
         	}
             // event to wait disconnection
             final CountDownLatch eventDisconnect = new CountDownLatch(1);
@@ -78,7 +83,9 @@ public class AdviceExample
 
             System.out.println("Connecting...");
             conversation.connect(SERVICE, TOPIC);
-            conversation.startAdvice(item);
+            for(String it : itemList) {conversation.startAdvice(it);}
+//            conversation.startAdvice(item);
+//            conversation.startAdvice(item2);
 
             System.out.println("Waiting event...");
             eventDisconnect.await();
