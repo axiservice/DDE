@@ -4,7 +4,6 @@ to communicate with native applications on Windows platform via Dynamic Data Exc
 Internet site:
 http://jdde.pretty-tools.com/
 
-
 ----------------------------------------------------------------------------------------------------
 
 Library is distributed under Apache License, Version 2.0.
