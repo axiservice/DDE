@@ -5,8 +5,6 @@
 import com.pretty_tools.dde.ClipboardFormat;
 import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.DDEMLException;
-import com.pretty_tools.dde.client.DDEClientConversation;
-import com.pretty_tools.dde.client.DDEClientEventListener;
 import com.pretty_tools.dde.server.DDEServer;
 
 import java.util.Arrays;
