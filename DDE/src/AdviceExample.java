@@ -35,8 +35,24 @@ public class AdviceExample
     static File fileName;
 	static String item, item2;
 	static List<String> itemList = new ArrayList<String>();
+	static Float dataCache = null;
 	
     public static void main(String[] args){
+    	// TEST
+//    	try {
+//    		playTicSound("152,4");
+//			Thread.sleep(1000);
+//			playTicSound("152,5");
+//			Thread.sleep(1000);
+//			playTicSound("152,4");
+//			Thread.sleep(1000);
+//			playTicSound("152,4");
+//		} catch (InterruptedException e2) {
+//			// TODO Auto-generated catch block
+//			e2.printStackTrace();
+//		}
+    	
+    	
         try{       
         	
         	if(args.length<2) {
@@ -119,5 +135,28 @@ public class AdviceExample
     	FileWriter fw = new FileWriter(fileName, true);
     	fw.write(day +";" + time + ";" + data.replace(";", "-") +"\n");
     	fw.close();
+    	
+    	playTicSound(data);
+    	
+    }
+    
+    private static void playTicSound(String data) {
+    	Float fd = Float.parseFloat(data.replace(",", "."));
+    	try {
+    		if(fd != null && dataCache != null) {
+    			if(fd > dataCache) {
+    				TicSong.songSignal(1);
+    			} else if(fd < dataCache) {
+    				TicSong.songSignal(-1);
+    			} else {
+    				TicSong.songSignal(0);
+    			}
+    		}
+    	} catch (Exception e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+
+    	dataCache = fd;
     }
 }
