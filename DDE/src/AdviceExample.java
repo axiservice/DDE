@@ -62,7 +62,7 @@ public class AdviceExample
         	} else {
         		fileName = new File(args[0]);        		
         		item = args[1];
-        		item2 = args[2];
+        		//item2 = args[2];
         		for(int i=1; i<args.length; i++) {itemList.add(args[i]);}
         	}
             // event to wait disconnection
@@ -88,11 +88,14 @@ public class AdviceExample
                 	
                     System.out.println("onItemChanged(" + topic + "," + item + "," + data + ")");
                     try{
-                        if ("stop".equalsIgnoreCase(data))
+                        if ("stop".equalsIgnoreCase(data)) {
                             conversation.stopAdvice(item);
+                            System.out.println("server stop signal (" + topic + "," + item + "," + data + ")");
+                        }
                     }
                     catch (DDEException e){
                         System.out.println("Exception: " + e);
+                        e.printStackTrace();
                     }
                 }
             });
@@ -116,7 +119,8 @@ public class AdviceExample
             System.out.println("DDEClientException: " + e.getMessage());
         }
         catch (Exception e){
-            System.out.println("Exception: " + e);
+        	e.printStackTrace();
+            //System.out.println("Exception: " + e);
         }
     }
     
